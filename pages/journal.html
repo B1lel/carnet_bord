@@ -33,7 +33,7 @@
         var res = await fetch('../content/journal.json');
         if (!res.ok) throw new Error('HTTP ' + res.status);
         var data = await res.json();
-        var entries = (data.entries || []).slice().reverse(); /* plus récent en premier */
+        var entries = (data.entries || []).slice().reverse();
 
         if (entries.length === 0) {
           container.innerHTML = '<p class="empty">Aucune entrée pour l\'instant.</p>';
@@ -46,56 +46,47 @@
           card.className = 'card';
 
           var dateStr = entry.date ? entry.date.split('T')[0] : '';
-
           var html =
             '<div class="card-date">' + dateStr + '</div>' +
             '<h2>' + escHtml(entry.title || '(sans titre)') + '</h2>';
 
-          /* Blocs d'activité */
           var blocks = entry.blocks || [];
           blocks.forEach(function (block) {
             html += '<div class="activity-block">';
 
-            /* Badges collaborateurs du bloc */
+            /* Badges collaborateurs */
             if (block.collaborators && block.collaborators.length > 0) {
               html += '<div class="collab-tags">';
               block.collaborators.forEach(function (name) {
-                var slug = name.toLowerCase()
-                  .replace(/[^a-z0-9]/g, '-')
-                  .replace(/-+/g, '-');
+                var slug = name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
                 html += '<span class="collab-tag collab-' + slug + '">' + escHtml(name) + '</span>';
               });
-              html += '</div>'; /* .collab-tags */
+              html += '</div>';
             }
 
             var imgs = (block.images || []).filter(function (img) { return img.src; });
 
             if (imgs.length === 1) {
-              /* Layout côte à côte : texte à gauche, image à droite */
+              /* 1 image : layout côte à côte */
               var img = imgs[0];
               html += '<div class="block-split">';
               html += '<div class="entry-body block-text">' + marked.parse(block.body || '') + '</div>';
               html += '<div class="block-img-side">';
               html += '<img src="' + escAttr(img.src) + '" alt="' + escAttr(img.caption || '') + '" loading="lazy" />';
               if (img.caption) html += '<div class="img-caption">' + escHtml(img.caption) + '</div>';
-              html += '</div>';
-              html += '</div>';
+              html += '</div></div>';
             } else {
-              /* Plusieurs images (ou zéro) : texte pleine largeur, grille en dessous */
+              /* 0 ou plusieurs images : texte pleine largeur */
               html += '<div class="entry-body">' + marked.parse(block.body || '') + '</div>';
               if (imgs.length > 1) {
                 html += '<div class="img-grid">';
                 imgs.forEach(function (img) {
-                  html +=
-                    '<div class="img-card">' +
-                    '<img src="' + escAttr(img.src) + '" alt="' + escAttr(img.caption || '') + '" loading="lazy" />';
+                  html += '<div class="img-card"><img src="' + escAttr(img.src) + '" alt="' + escAttr(img.caption || '') + '" loading="lazy" />';
                   if (img.caption) html += '<div class="img-caption">' + escHtml(img.caption) + '</div>';
                   html += '</div>';
                 });
                 html += '</div>';
               }
-            }
-              html += '</div>';
             }
 
             html += '</div>'; /* .activity-block */
@@ -105,7 +96,6 @@
           container.appendChild(card);
         });
 
-        /* Rendu des équations inline $...$ et blocs $$...$$ */
         renderMathInElement(container, {
           delimiters: [
             { left: '$$', right: '$$', display: true },
@@ -114,7 +104,6 @@
           throwOnError: false,
         });
 
-        /* Coloration syntaxique */
         container.querySelectorAll('pre code').forEach(function (el) {
           hljs.highlightElement(el);
         });
@@ -125,7 +114,6 @@
       }
     }
 
-    /* Helpers XSS-safe */
     function escHtml(str) {
       return String(str)
         .replace(/&/g, '&amp;')

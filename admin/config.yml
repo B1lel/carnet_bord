@@ -5,6 +5,10 @@ backend:
   name: git-gateway
   branch: main
 
+# Mode éditorial : permet de sauvegarder en brouillon sans déclencher de build
+# Les entrées passent par Draft → In Review → Published (1 seul build au moment de publier)
+publish_mode: editorial_workflow
+
 # Dossier de stockage des images uploadées via l'éditeur
 media_folder: "assets/img"
 public_folder: "/assets/img"
