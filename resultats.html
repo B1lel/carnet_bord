@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Résultats — Carnet de bord</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <script src="nav.js"></script>
+  <script>injectNav('resultats');</script>
+
+  <main>
+    <div class="page-header">
+      <h1>Résultats & simulations</h1>
+      <p>Graphiques, courbes et GIFs produits au fil du projet.</p>
+    </div>
+    <div id="grid" class="img-grid"><p class="empty">Chargement…</p></div>
+  </main>
+
+  <script>
+    async function loadResultats() {
+      var grid = document.getElementById('grid');
+      try {
+        var res = await fetch('content/resultats.json');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        var data = await res.json();
+        var entries = data.entries || [];
+
+        if (entries.length === 0) {
+          grid.innerHTML = '<p class="empty">Aucun résultat ajouté pour l\'instant.</p>';
+          return;
+        }
+
+        grid.innerHTML = '';
+        entries.forEach(function (entry) {
+          var card = document.createElement('div');
+          card.className = 'img-card';
+
+          var html = '';
+          if (entry.src) {
+            html += '<img src="' + escAttr(entry.src) + '" alt="' + escAttr(entry.title || '') + '" loading="lazy" />';
+          }
+          html += '<div class="img-caption">';
+          if (entry.title) html += '<strong>' + escHtml(entry.title) + '</strong>';
+          if (entry.description) html += '<br>' + escHtml(entry.description);
+          html += '</div>';
+
+          card.innerHTML = html;
+          grid.appendChild(card);
+        });
+
+      } catch (e) {
+        grid.innerHTML =
+          '<p class="error-msg">Impossible de charger les résultats : ' + e.message + '</p>';
+      }
+    }
+
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+    function escAttr(str) { return escHtml(str); }
+
+    loadResultats();
+  </script>
+</body>
+</html>

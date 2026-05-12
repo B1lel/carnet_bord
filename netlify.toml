@@ -1,0 +1,20 @@
+# netlify.toml — Configuration Netlify
+# Ce fichier doit être à la racine du dépôt GitHub.
+
+[build]
+  # Pas de commande de build : site 100% statique
+  publish = "."
+
+# En-têtes de sécurité pour toutes les pages
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Nécessaire pour que Netlify Identity redirige correctement après login
+[[redirects]]
+  from  = "/admin/"
+  to    = "/admin/index.html"
+  status = 200

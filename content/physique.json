@@ -1,0 +1,9 @@
+{
+  "entries": [
+    {
+      "title": "Loi de Stefan-Boltzmann",
+      "equation": "P = \\sigma T^4",
+      "body": "Tout corps à la température $T$ rayonne de l'énergie électromagnétique. Pour un **corps noir parfait**, la puissance émise par unité de surface est donnée par la loi de Stefan-Boltzmann :\n\n$$P = \\sigma T^4$$\n\nOù $\\sigma = 5{,}67 \\times 10^{-8}$ W m⁻² K⁻⁴ est la constante de Stefan-Boltzmann.\n\n### Application à la Terre\n\nEn supposant que la Terre émet comme un corps noir, la puissance totale rayonnée est :\n\n$$P_{\\text{Terre}} = 4\\pi R_T^2 \\, \\sigma T^4$$\n\nEn équilibrant avec la puissance solaire absorbée, on obtient la **température d'équilibre radiative** :\n\n$$T_{\\text{eq}} = \\left( \\frac{S_0 (1 - A)}{4 \\sigma} \\right)^{1/4} \\approx 255 \\text{ K}$$\n\nCette valeur est inférieure à la température réelle (~288 K) : c'est l'**effet de serre** qui comble cet écart."
+    }
+  ]
+}

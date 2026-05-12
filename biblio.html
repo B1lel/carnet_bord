@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bibliographie — Carnet de bord</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <script src="nav.js"></script>
+  <script>injectNav('biblio');</script>
+
+  <main>
+    <div class="page-header">
+      <h1>Bibliographie</h1>
+      <p>Sources, articles et ouvrages consultés pendant le projet, avec notes.</p>
+    </div>
+    <ol id="entries" style="list-style:none;padding:0"><p class="empty">Chargement…</p></ol>
+  </main>
+
+  <script>
+    async function loadBiblio() {
+      var container = document.getElementById('entries');
+      try {
+        var res = await fetch('content/biblio.json');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        var data = await res.json();
+        var entries = data.entries || [];
+
+        if (entries.length === 0) {
+          container.innerHTML = '<p class="empty">Aucune référence ajoutée pour l\'instant.</p>';
+          return;
+        }
+
+        container.innerHTML = '';
+        entries.forEach(function (entry, i) {
+          var li = document.createElement('li');
+          li.className = 'card biblio-entry';
+
+          var html =
+            '<div class="bib-title">[' + (i + 1) + '] ' + escHtml(entry.title || '') + '</div>';
+
+          if (entry.authors) {
+            html += '<div class="bib-authors">' + escHtml(entry.authors) + '</div>';
+          }
+
+          var meta = [];
+          if (entry.year) meta.push('<span class="tag">' + escHtml(entry.year) + '</span>');
+          if (meta.length) html += '<div style="margin:.35rem 0">' + meta.join(' ') + '</div>';
+
+          if (entry.url) {
+            html +=
+              '<div class="bib-url"><a href="' + escAttr(entry.url) +
+              '" target="_blank" rel="noopener noreferrer">' + escHtml(entry.url) + '</a></div>';
+          }
+
+          if (entry.notes) {
+            html += '<div class="bib-notes">' + escHtml(entry.notes) + '</div>';
+          }
+
+          li.innerHTML = html;
+          container.appendChild(li);
+        });
+
+      } catch (e) {
+        container.innerHTML =
+          '<p class="error-msg">Impossible de charger la bibliographie : ' + e.message + '</p>';
+      }
+    }
+
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+    function escAttr(str) { return escHtml(str); }
+
+    loadBiblio();
+  </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "entries": [
+    {
+      "title": "Température d'équilibre radiative",
+      "description": "Calcul de la température d'équilibre de la Terre en supposant un corps noir parfait (bilan radiatif simple, avec albédo).",
+      "code": {
+        "code": "import numpy as np\n\n# Constantes physiques\nSIGMA = 5.67e-8   # Constante de Stefan-Boltzmann (W/m²/K⁴)\nS0    = 1361.0    # Constante solaire (W/m²)\nA     = 0.30      # Albédo moyen de la Terre (sans unité)\n\n# Bilan radiatif à l'équilibre :\n#   Puissance absorbée  = S0 * (1 - A) * pi * R²\n#   Puissance émise     = sigma * T^4 * 4 * pi * R²\n#   => S0 * (1 - A) / 4 = sigma * T_eq^4\n\nT_eq = ((S0 * (1.0 - A)) / (4.0 * SIGMA)) ** 0.25\n\nprint(f\"Température d'équilibre : {T_eq:.1f} K  ({T_eq - 273.15:.1f} °C)\")\n# → 254.9 K, soit −18.2 °C  (sans effet de serre)",
+        "lang": "python"
+      }
+    }
+  ]
+}

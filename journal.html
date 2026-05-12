@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Journal — Carnet de bord</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+</head>
+<body>
+  <script src="nav.js"></script>
+  <script>injectNav('journal');</script>
+
+  <main>
+    <div class="page-header">
+      <h1>Journal de bord</h1>
+      <p>Suivi chronologique de ma progression — de la plus récente à la plus ancienne.</p>
+    </div>
+    <div id="entries"><p class="empty">Chargement…</p></div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+
+  <script>
+    async function loadJournal() {
+      var container = document.getElementById('entries');
+      try {
+        var res = await fetch('content/journal.json');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        var data = await res.json();
+        var entries = (data.entries || []).slice().reverse(); /* plus récent en premier */
+
+        if (entries.length === 0) {
+          container.innerHTML = '<p class="empty">Aucune entrée pour l\'instant.</p>';
+          return;
+        }
+
+        container.innerHTML = '';
+        entries.forEach(function (entry) {
+          var card = document.createElement('article');
+          card.className = 'card';
+
+          var dateStr = entry.date ? entry.date.split('T')[0] : '';
+
+          var html =
+            '<div class="card-date">' + dateStr + '</div>' +
+            '<h2>' + escHtml(entry.title || '(sans titre)') + '</h2>' +
+            '<div class="entry-body">' + marked.parse(entry.body || '') + '</div>';
+
+          if (entry.images && entry.images.length > 0) {
+            html += '<div class="img-grid">';
+            entry.images.forEach(function (img) {
+              if (img.src) {
+                html +=
+                  '<div class="img-card">' +
+                  '<img src="' + escAttr(img.src) + '" alt="' + escAttr(img.caption || '') + '" loading="lazy" />';
+                if (img.caption) {
+                  html += '<div class="img-caption">' + escHtml(img.caption) + '</div>';
+                }
+                html += '</div>';
+              }
+            });
+            html += '</div>';
+          }
+
+          card.innerHTML = html;
+          container.appendChild(card);
+        });
+
+        /* Rendu des équations inline $...$ et blocs $$...$$ */
+        renderMathInElement(container, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$',  right: '$',  display: false },
+          ],
+          throwOnError: false,
+        });
+
+        /* Coloration syntaxique */
+        container.querySelectorAll('pre code').forEach(function (el) {
+          hljs.highlightElement(el);
+        });
+
+      } catch (e) {
+        container.innerHTML =
+          '<p class="error-msg">Impossible de charger le journal : ' + e.message + '</p>';
+      }
+    }
+
+    /* Helpers XSS-safe */
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+    function escAttr(str) { return escHtml(str); }
+
+    loadJournal();
+  </script>
+</body>
+</html>

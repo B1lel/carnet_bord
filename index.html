@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carnet de bord — Modélisation de la température terrestre</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <script src="nav.js"></script>
+  <script>injectNav('index');</script>
+
+  <main>
+    <div class="page-header">
+      <h1>Modélisation de la température terrestre</h1>
+      <p>Carnet de bord personnel — Projet Python 2A CPGE</p>
+    </div>
+
+    <p>
+      Ce site documente ma progression individuelle sur le projet de modélisation
+      de la température de surface de la Terre à partir des lois physiques fondamentales,
+      implémenté en Python.
+    </p>
+
+    <h2>Sections</h2>
+    <div class="section-grid">
+      <a class="section-card" href="journal.html">
+        <div class="sc-icon">📅</div>
+        <div class="sc-title">Journal de bord</div>
+        <div class="sc-desc">Suivi chronologique des séances, avancées et obstacles rencontrés.</div>
+      </a>
+      <a class="section-card" href="physique.html">
+        <div class="sc-icon">⚛️</div>
+        <div class="sc-title">Physique</div>
+        <div class="sc-desc">Lois physiques utilisées dans le modèle, avec équations et explications.</div>
+      </a>
+      <a class="section-card" href="code.html">
+        <div class="sc-icon">🐍</div>
+        <div class="sc-title">Code Python</div>
+        <div class="sc-desc">Extraits commentés du programme, fonctions clés et choix d'implémentation.</div>
+      </a>
+      <a class="section-card" href="resultats.html">
+        <div class="sc-icon">📊</div>
+        <div class="sc-title">Résultats</div>
+        <div class="sc-desc">Graphiques, courbes et simulations produits au fil du projet.</div>
+      </a>
+      <a class="section-card" href="biblio.html">
+        <div class="sc-icon">📚</div>
+        <div class="sc-title">Bibliographie</div>
+        <div class="sc-desc">Sources, articles et ouvrages consultés, avec notes.</div>
+      </a>
+    </div>
+
+    <h2>Dernière entrée du journal</h2>
+    <div id="last-entry">
+      <p class="empty">Chargement…</p>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    async function loadLastEntry() {
+      var container = document.getElementById('last-entry');
+      try {
+        var res = await fetch('content/journal.json');
+        if (!res.ok) throw new Error();
+        var data = await res.json();
+        var entries = (data.entries || []);
+        if (entries.length === 0) {
+          container.innerHTML = '<p class="empty">Aucune entrée pour l\'instant — <a href="journal.html">voir le journal</a>.</p>';
+          return;
+        }
+        var entry = entries[entries.length - 1]; /* dernière entrée */
+        var dateStr = entry.date ? entry.date.split('T')[0] : '';
+        var card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML =
+          '<div class="card-date">' + dateStr + '</div>' +
+          '<h2>' + entry.title + '</h2>' +
+          '<div class="entry-body">' + marked.parse(entry.body || '') + '</div>' +
+          '<p style="margin-top:1rem"><a href="journal.html">Voir toutes les entrées →</a></p>';
+        container.innerHTML = '';
+        container.appendChild(card);
+      } catch (e) {
+        container.innerHTML = '<p class="empty">Impossible de charger le journal.</p>';
+      }
+    }
+    loadLastEntry();
+  </script>
+</body>
+</html>

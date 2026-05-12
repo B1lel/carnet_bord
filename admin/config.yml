@@ -1,0 +1,181 @@
+# Configuration Decap CMS
+# Documentation : https://decapcms.org/docs/configuration-options/
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Dossier de stockage des images uploadées via l'éditeur
+media_folder: "assets/img"
+public_folder: "/assets/img"
+
+# Format des fichiers de contenu
+locale: "fr"
+
+collections:
+
+  # ── Journal de bord ──────────────────────────────────────────
+  - name: "journal"
+    label: "Journal de bord"
+    files:
+      - name: "entries"
+        label: "Entrées du journal"
+        file: "content/journal.json"
+        format: "json"
+        fields:
+          - label: "Entrées"
+            name: "entries"
+            widget: "list"
+            label_singular: "Entrée"
+            summary: "{{fields.date}} — {{fields.title}}"
+            fields:
+              - label: "Date"
+                name: "date"
+                widget: "datetime"
+                date_format: "YYYY-MM-DD"
+                time_format: false
+                format: "YYYY-MM-DDTHH:mm:ss.SSSZ"
+              - label: "Titre"
+                name: "title"
+                widget: "string"
+                hint: "Ex : Implémentation de la diffusion thermique"
+              - label: "Contenu"
+                name: "body"
+                widget: "markdown"
+                hint: "Supporte Markdown, équations LaTeX entre $...$ (inline) ou $$...$$ (bloc)"
+                buttons: [bold, italic, code, bulleted-list, numbered-list, heading]
+              - label: "Images"
+                name: "images"
+                widget: "list"
+                required: false
+                label_singular: "Image"
+                fields:
+                  - label: "Fichier image ou GIF"
+                    name: "src"
+                    widget: "image"
+                    required: false
+                  - label: "Légende"
+                    name: "caption"
+                    widget: "string"
+                    required: false
+
+  # ── Physique ─────────────────────────────────────────────────
+  - name: "physique"
+    label: "Physique"
+    files:
+      - name: "entries"
+        label: "Lois physiques"
+        file: "content/physique.json"
+        format: "json"
+        fields:
+          - label: "Lois"
+            name: "entries"
+            widget: "list"
+            label_singular: "Loi physique"
+            summary: "{{fields.title}}"
+            fields:
+              - label: "Titre"
+                name: "title"
+                widget: "string"
+                hint: "Ex : Loi de Stefan-Boltzmann"
+              - label: "Équation principale (LaTeX)"
+                name: "equation"
+                widget: "string"
+                required: false
+                hint: "Entrer uniquement la formule LaTeX, sans les $. Ex : P = \\sigma T^4"
+              - label: "Explication"
+                name: "body"
+                widget: "markdown"
+                hint: "Équations inline possibles avec $...$ ou blocs avec $$...$$"
+
+  # ── Code Python ──────────────────────────────────────────────
+  - name: "code"
+    label: "Code Python"
+    files:
+      - name: "entries"
+        label: "Extraits de code"
+        file: "content/code.json"
+        format: "json"
+        fields:
+          - label: "Snippets"
+            name: "entries"
+            widget: "list"
+            label_singular: "Extrait"
+            summary: "{{fields.title}}"
+            fields:
+              - label: "Titre"
+                name: "title"
+                widget: "string"
+                hint: "Ex : Température d'équilibre radiative"
+              - label: "Description courte"
+                name: "description"
+                widget: "text"
+                required: false
+                hint: "Expliquer ce que fait ce code en quelques phrases"
+              - label: "Code Python"
+                name: "code"
+                widget: "code"
+                default_language: "python"
+                allow_language_selection: false
+
+  # ── Résultats ─────────────────────────────────────────────────
+  - name: "resultats"
+    label: "Résultats"
+    files:
+      - name: "entries"
+        label: "Résultats & simulations"
+        file: "content/resultats.json"
+        format: "json"
+        fields:
+          - label: "Résultats"
+            name: "entries"
+            widget: "list"
+            label_singular: "Résultat"
+            summary: "{{fields.title}}"
+            fields:
+              - label: "Titre"
+                name: "title"
+                widget: "string"
+              - label: "Image ou GIF"
+                name: "src"
+                widget: "image"
+              - label: "Description"
+                name: "description"
+                widget: "text"
+                required: false
+
+  # ── Bibliographie ─────────────────────────────────────────────
+  - name: "biblio"
+    label: "Bibliographie"
+    files:
+      - name: "entries"
+        label: "Références"
+        file: "content/biblio.json"
+        format: "json"
+        fields:
+          - label: "Références"
+            name: "entries"
+            widget: "list"
+            label_singular: "Référence"
+            summary: "{{fields.title}}"
+            fields:
+              - label: "Titre"
+                name: "title"
+                widget: "string"
+              - label: "Auteurs"
+                name: "authors"
+                widget: "string"
+                required: false
+              - label: "Année"
+                name: "year"
+                widget: "string"
+                required: false
+              - label: "URL / lien"
+                name: "url"
+                widget: "string"
+                required: false
+              - label: "Notes"
+                name: "notes"
+                widget: "text"
+                required: false
+                hint: "Tes observations sur cette source"
