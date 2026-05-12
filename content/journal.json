@@ -5,6 +5,17 @@
       "title": "Lancement du projet",
       "body": "Première séance de travail en groupe. Nous avons défini les grandes étapes du modèle :\n\n1. Modèle zéro-dimensionnel (bilan radiatif simple)\n2. Ajout de l'albédo et de l'effet de serre\n3. Modèle 1D en latitude\n\nPour le bilan radiatif de base, on part de l'équilibre entre la puissance solaire absorbée et l'énergie infrarouge émise par la Terre :\n\n$$\\frac{S_0 (1 - A)}{4} = \\sigma T^4$$\n\nCette première version donne une température d'équilibre d'environ **255 K** (−18 °C), ce qui montre clairement l'importance de l'effet de serre pour expliquer les 288 K réels.",
       "images": []
+    },
+    {
+      "date": "2026-05-12T00:00:00.000+02:00",
+      "title": "Test",
+      "body": "La je parle \\\nla c'est **gras**, *italique et un [lien  ](https://www.youtube.com/watch?v=VObi9fpvNVM)*\n\n1. $\\curl{\\vb{B}}$\n2. $$\\curl{\\vb{B}}$$",
+      "images": [
+        {
+          "src": "https://web3.bitget.com/en/academy/what-is-kirkification-kirkify-how-the-charlie-kirk-meme-wave-created-a-decentralized-memecoin",
+          "caption": "Exemple de fou "
+        }
+      ]
     }
   ]
 }
