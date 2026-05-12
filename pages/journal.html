@@ -65,24 +65,36 @@
                   .replace(/-+/g, '-');
                 html += '<span class="collab-tag collab-' + slug + '">' + escHtml(name) + '</span>';
               });
-              html += '</div>';
+              html += '</div>'; /* .collab-tags */
             }
 
-            html += '<div class="entry-body">' + marked.parse(block.body || '') + '</div>';
+            var imgs = (block.images || []).filter(function (img) { return img.src; });
 
-            /* Images du bloc */
-            var imgs = block.images || [];
-            if (imgs.length > 0) {
-              html += '<div class="img-grid">';
-              imgs.forEach(function (img) {
-                if (img.src) {
+            if (imgs.length === 1) {
+              /* Layout côte à côte : texte à gauche, image à droite */
+              var img = imgs[0];
+              html += '<div class="block-split">';
+              html += '<div class="entry-body block-text">' + marked.parse(block.body || '') + '</div>';
+              html += '<div class="block-img-side">';
+              html += '<img src="' + escAttr(img.src) + '" alt="' + escAttr(img.caption || '') + '" loading="lazy" />';
+              if (img.caption) html += '<div class="img-caption">' + escHtml(img.caption) + '</div>';
+              html += '</div>';
+              html += '</div>';
+            } else {
+              /* Plusieurs images (ou zéro) : texte pleine largeur, grille en dessous */
+              html += '<div class="entry-body">' + marked.parse(block.body || '') + '</div>';
+              if (imgs.length > 1) {
+                html += '<div class="img-grid">';
+                imgs.forEach(function (img) {
                   html +=
                     '<div class="img-card">' +
                     '<img src="' + escAttr(img.src) + '" alt="' + escAttr(img.caption || '') + '" loading="lazy" />';
                   if (img.caption) html += '<div class="img-caption">' + escHtml(img.caption) + '</div>';
                   html += '</div>';
-                }
-              });
+                });
+                html += '</div>';
+              }
+            }
               html += '</div>';
             }
 

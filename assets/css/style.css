@@ -277,6 +277,30 @@ pre code {
   padding-top: 0.25rem;
 }
 
+/* Layout côte à côte : 1 image */
+.block-split {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1.25rem;
+  align-items: start;
+}
+.block-text { min-width: 0; }
+.block-img-side {
+  width: 260px;
+  flex-shrink: 0;
+}
+.block-img-side img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  cursor: zoom-in;
+}
+@media (max-width: 700px) {
+  .block-split { grid-template-columns: 1fr; }
+  .block-img-side { width: 100%; }
+}
+
 /* Couleur par personne */
 .collab-groupe      { background: rgba(240,136, 62,0.12); color: var(--accent-warm); border-color: rgba(240,136, 62,0.35); }
 .collab-th-o        { background: rgba( 88,166,255,0.12); color: #79c0ff;             border-color: rgba( 88,166,255,0.35); }
