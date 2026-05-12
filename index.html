@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carnet de bord — Modélisation de la température terrestre</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- Netlify Identity : nécessaire pour intercepter le lien d'invitation -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
   <script src="nav.js"></script>
@@ -58,6 +60,18 @@
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    /* Redirige vers /admin après connexion via le lien d'invitation */
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', function (user) {
+        if (!user) {
+          window.netlifyIdentity.on('login', function () {
+            document.location.href = '/admin/';
+          });
+        }
+      });
+    }
+  </script>
   <script>
     async function loadLastEntry() {
       var container = document.getElementById('last-entry');
