@@ -9,7 +9,7 @@
     {
       "date": "2026-05-12T00:00:00.000+02:00",
       "title": "Test",
-      "body": "La je parle \\\nla c'est **gras**, *italique et un [lien  ](https://www.youtube.com/watch?v=VObi9fpvNVM)*\n\n1. $\\curl{\\vb{B}}$\n2. $$\\curl{\\vb{B}}$$",
+      "body": "La je parle \\\nla c'est **gras**, *italique et un [lien  ](https://www.youtube.com/watch?v=VObi9fpvNVM)*\n\n> T_eq = ((S0 \\* (1.0 - A)) / (4.0 \\* SIGMA)) \\*\\* 0.25\n\n\n\n1. $\\curl{\\vb{B}}$\n2. $$\\curl{\\vb{B}}$$",
       "images": [
         {
           "src": "https://web3.bitget.com/en/academy/what-is-kirkification-kirkify-how-the-charlie-kirk-meme-wave-created-a-decentralized-memecoin",
