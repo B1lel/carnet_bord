@@ -247,6 +247,49 @@ pre code {
   font-family: 'JetBrains Mono', monospace;
 }
 
+/* ── Collaborateurs ── */
+.collab-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.65rem;
+}
+.collab-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.2em 0.65em;
+  border-radius: 99px;
+  border: 1px solid;
+}
+.collab-tag::before { content: '👤'; font-size: 0.8em; }
+.collab-groupe::before { content: '👥'; }
+
+/* Blocs d'activité dans une entrée */
+.activity-block {
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--border);
+}
+.activity-block:first-child {
+  border-top: none;
+  padding-top: 0.25rem;
+}
+
+/* Couleur par personne */
+.collab-groupe      { background: rgba(240,136, 62,0.12); color: var(--accent-warm); border-color: rgba(240,136, 62,0.35); }
+.collab-th-o        { background: rgba( 88,166,255,0.12); color: #79c0ff;             border-color: rgba( 88,166,255,0.35); }
+.collab-l-a         { background: rgba(188,140,255,0.12); color: #d2a8ff;             border-color: rgba(188,140,255,0.35); }
+.collab-mathis      { background: rgba( 63,185, 80,0.12); color: var(--green);        border-color: rgba( 63,185, 80,0.35); }
+.collab-camille     { background: rgba(255,123,114,0.12); color: #ffa198;             border-color: rgba(255,123,114,0.35); }
+.collab-hugo        { background: rgba( 56,189,248,0.12); color: #67d6f5;             border-color: rgba( 56,189,248,0.35); }
+.collab-in-s        { background: rgba(251,191, 36,0.12); color: #fbbf24;             border-color: rgba(251,191, 36,0.35); }
+.collab-axel        { background: rgba(244,114,182,0.12); color: #f472b6;             border-color: rgba(244,114,182,0.35); }
+.collab-zo-         { background: rgba(167,243,208,0.12); color: #6ee7b7;             border-color: rgba(167,243,208,0.35); }
+.collab-m--chevereau{ background: rgba(148,163,184,0.12); color: #94a3b8;             border-color: rgba(148,163,184,0.35); }
+.collab-m--bernard  { background: rgba(148,163,184,0.12); color: #94a3b8;             border-color: rgba(148,163,184,0.35); }
+
 /* ── Code snippet header ── */
 .snippet-header {
   display: flex;
@@ -260,9 +303,25 @@ pre code {
   color: var(--text-muted);
   margin-bottom: 0.5rem;
 }
+.gh-link {
+  background: rgba(63, 185, 80, 0.12);
+  color: var(--green);
+  border-color: rgba(63, 185, 80, 0.3);
+  text-decoration: none;
+  font-size: 0.75rem;
+}
+.gh-link:hover { background: rgba(63, 185, 80, 0.22); text-decoration: none; }
+
+/* ── Liens inter-site vers la biblio ── */
+.entry-body a[href*="biblio.html#"]::after,
+a[href*="biblio.html#"]::after {
+  content: '\00a0📚';
+  font-size: 0.8em;
+}
 
 /* ── Biblio ── */
 .biblio-entry {
+  scroll-margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;

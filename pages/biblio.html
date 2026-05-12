@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bibliographie — Carnet de bord</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
 <body>
-  <script src="nav.js"></script>
+  <script src="../assets/js/nav.js"></script>
   <script>injectNav('biblio');</script>
 
   <main>
@@ -22,7 +22,7 @@
     async function loadBiblio() {
       var container = document.getElementById('entries');
       try {
-        var res = await fetch('content/biblio.json');
+        var res = await fetch('../content/biblio.json');
         if (!res.ok) throw new Error('HTTP ' + res.status);
         var data = await res.json();
         var entries = data.entries || [];
@@ -36,6 +36,7 @@
         entries.forEach(function (entry, i) {
           var li = document.createElement('li');
           li.className = 'card biblio-entry';
+          if (entry.id) li.id = entry.id;
 
           var html =
             '<div class="bib-title">[' + (i + 1) + '] ' + escHtml(entry.title || '') + '</div>';

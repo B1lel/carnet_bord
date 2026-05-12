@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Résultats — Carnet de bord</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
 <body>
-  <script src="nav.js"></script>
+  <script src="../assets/js/nav.js"></script>
   <script>injectNav('resultats');</script>
 
   <main>
@@ -18,11 +18,18 @@
     <div id="grid" class="img-grid"><p class="empty">Chargement…</p></div>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
+    function toRawUrl(url) {
+      return url
+        .replace('https://github.com/', 'https://raw.githubusercontent.com/')
+        .replace('/blob/', '/');
+    }
+
     async function loadResultats() {
       var grid = document.getElementById('grid');
       try {
-        var res = await fetch('content/resultats.json');
+        var res = await fetch('../content/resultats.json');
         if (!res.ok) throw new Error('HTTP ' + res.status);
         var data = await res.json();
         var entries = data.entries || [];
@@ -37,13 +44,15 @@
           var card = document.createElement('div');
           card.className = 'img-card';
 
+          var imgSrc = entry.github_url ? toRawUrl(entry.github_url.trim()) : (entry.src || '');
+
           var html = '';
-          if (entry.src) {
-            html += '<img src="' + escAttr(entry.src) + '" alt="' + escAttr(entry.title || '') + '" loading="lazy" />';
+          if (imgSrc) {
+            html += '<img src="' + escAttr(imgSrc) + '" alt="' + escAttr(entry.title || '') + '" loading="lazy" />';
           }
           html += '<div class="img-caption">';
           if (entry.title) html += '<strong>' + escHtml(entry.title) + '</strong>';
-          if (entry.description) html += '<br>' + escHtml(entry.description);
+          if (entry.description) html += '<br>' + marked.parseInline(entry.description);
           html += '</div>';
 
           card.innerHTML = html;

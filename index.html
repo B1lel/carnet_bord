@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carnet de bord — Modélisation de la température terrestre</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
   <!-- Netlify Identity : nécessaire pour intercepter le lien d'invitation -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-  <script src="nav.js"></script>
+  <script src="assets/js/nav.js"></script>
   <script>injectNav('index');</script>
 
   <main>
@@ -26,27 +26,27 @@
 
     <h2>Sections</h2>
     <div class="section-grid">
-      <a class="section-card" href="journal.html">
+      <a class="section-card" href="pages/journal.html">
         <div class="sc-icon">📅</div>
         <div class="sc-title">Journal de bord</div>
         <div class="sc-desc">Suivi chronologique des séances, avancées et obstacles rencontrés.</div>
       </a>
-      <a class="section-card" href="physique.html">
+      <a class="section-card" href="pages/physique.html">
         <div class="sc-icon">⚛️</div>
         <div class="sc-title">Physique</div>
         <div class="sc-desc">Lois physiques utilisées dans le modèle, avec équations et explications.</div>
       </a>
-      <a class="section-card" href="code.html">
+      <a class="section-card" href="pages/code.html">
         <div class="sc-icon">🐍</div>
         <div class="sc-title">Code Python</div>
         <div class="sc-desc">Extraits commentés du programme, fonctions clés et choix d'implémentation.</div>
       </a>
-      <a class="section-card" href="resultats.html">
+      <a class="section-card" href="pages/resultats.html">
         <div class="sc-icon">📊</div>
         <div class="sc-title">Résultats</div>
         <div class="sc-desc">Graphiques, courbes et simulations produits au fil du projet.</div>
       </a>
-      <a class="section-card" href="biblio.html">
+      <a class="section-card" href="pages/biblio.html">
         <div class="sc-icon">📚</div>
         <div class="sc-title">Bibliographie</div>
         <div class="sc-desc">Sources, articles et ouvrages consultés, avec notes.</div>
@@ -92,7 +92,7 @@
           '<div class="card-date">' + dateStr + '</div>' +
           '<h2>' + entry.title + '</h2>' +
           '<div class="entry-body">' + marked.parse(entry.body || '') + '</div>' +
-          '<p style="margin-top:1rem"><a href="journal.html">Voir toutes les entrées →</a></p>';
+          '<p style="margin-top:1rem"><a href="pages/journal.html">Voir toutes les entrées →</a></p>';
         container.innerHTML = '';
         container.appendChild(card);
       } catch (e) {

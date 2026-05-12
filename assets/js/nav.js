@@ -1,12 +1,12 @@
 /* nav.js — injecte la barre de navigation commune + lightbox sur toutes les pages */
 (function () {
   var links = [
-    { id: 'index',     href: 'index.html',     icon: '🏠', label: 'Accueil' },
-    { id: 'journal',   href: 'journal.html',   icon: '📅', label: 'Journal' },
-    { id: 'physique',  href: 'physique.html',  icon: '⚛️',  label: 'Physique' },
-    { id: 'code',      href: 'code.html',      icon: '🐍', label: 'Code Python' },
-    { id: 'resultats', href: 'resultats.html', icon: '📊', label: 'Résultats' },
-    { id: 'biblio',    href: 'biblio.html',    icon: '📚', label: 'Bibliographie' },
+    { id: 'index',     href: '/index.html',          icon: '🏠', label: 'Accueil' },
+    { id: 'journal',   href: '/pages/journal.html',   icon: '📅', label: 'Journal' },
+    { id: 'physique',  href: '/pages/physique.html',  icon: '⚛️',  label: 'Physique' },
+    { id: 'code',      href: '/pages/code.html',      icon: '🐍', label: 'Code Python' },
+    { id: 'resultats', href: '/pages/resultats.html', icon: '📊', label: 'Résultats' },
+    { id: 'biblio',    href: '/pages/biblio.html',    icon: '📚', label: 'Bibliographie' },
   ];
 
   window.injectNav = function (activePage) {
@@ -31,7 +31,7 @@
     var footer = document.createElement('div');
     footer.className = 'sidebar-footer';
     var adminLink = document.createElement('a');
-    adminLink.href = 'admin/index.html';
+    adminLink.href = '/admin/';
     adminLink.innerHTML = '<span class="nav-icon">⚙️</span>Admin';
     footer.appendChild(adminLink);
     nav.appendChild(footer);

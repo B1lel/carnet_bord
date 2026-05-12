@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Journal — Carnet de bord</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
 </head>
 <body>
-  <script src="nav.js"></script>
+  <script src="../assets/js/nav.js"></script>
   <script>injectNav('journal');</script>
 
   <main>
@@ -30,7 +30,7 @@
     async function loadJournal() {
       var container = document.getElementById('entries');
       try {
-        var res = await fetch('content/journal.json');
+        var res = await fetch('../content/journal.json');
         if (!res.ok) throw new Error('HTTP ' + res.status);
         var data = await res.json();
         var entries = (data.entries || []).slice().reverse(); /* plus récent en premier */
@@ -49,24 +49,45 @@
 
           var html =
             '<div class="card-date">' + dateStr + '</div>' +
-            '<h2>' + escHtml(entry.title || '(sans titre)') + '</h2>' +
-            '<div class="entry-body">' + marked.parse(entry.body || '') + '</div>';
+            '<h2>' + escHtml(entry.title || '(sans titre)') + '</h2>';
 
-          if (entry.images && entry.images.length > 0) {
-            html += '<div class="img-grid">';
-            entry.images.forEach(function (img) {
-              if (img.src) {
-                html +=
-                  '<div class="img-card">' +
-                  '<img src="' + escAttr(img.src) + '" alt="' + escAttr(img.caption || '') + '" loading="lazy" />';
-                if (img.caption) {
-                  html += '<div class="img-caption">' + escHtml(img.caption) + '</div>';
+          /* Blocs d'activité */
+          var blocks = entry.blocks || [];
+          blocks.forEach(function (block) {
+            html += '<div class="activity-block">';
+
+            /* Badges collaborateurs du bloc */
+            if (block.collaborators && block.collaborators.length > 0) {
+              html += '<div class="collab-tags">';
+              block.collaborators.forEach(function (name) {
+                var slug = name.toLowerCase()
+                  .replace(/[^a-z0-9]/g, '-')
+                  .replace(/-+/g, '-');
+                html += '<span class="collab-tag collab-' + slug + '">' + escHtml(name) + '</span>';
+              });
+              html += '</div>';
+            }
+
+            html += '<div class="entry-body">' + marked.parse(block.body || '') + '</div>';
+
+            /* Images du bloc */
+            var imgs = block.images || [];
+            if (imgs.length > 0) {
+              html += '<div class="img-grid">';
+              imgs.forEach(function (img) {
+                if (img.src) {
+                  html +=
+                    '<div class="img-card">' +
+                    '<img src="' + escAttr(img.src) + '" alt="' + escAttr(img.caption || '') + '" loading="lazy" />';
+                  if (img.caption) html += '<div class="img-caption">' + escHtml(img.caption) + '</div>';
+                  html += '</div>';
                 }
-                html += '</div>';
-              }
-            });
-            html += '</div>';
-          }
+              });
+              html += '</div>';
+            }
+
+            html += '</div>'; /* .activity-block */
+          });
 
           card.innerHTML = html;
           container.appendChild(card);

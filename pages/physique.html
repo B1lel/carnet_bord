@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Physique — Carnet de bord</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
 </head>
 <body>
-  <script src="nav.js"></script>
+  <script src="../assets/js/nav.js"></script>
   <script>injectNav('physique');</script>
 
   <main>
@@ -27,7 +27,7 @@
     async function loadPhysique() {
       var container = document.getElementById('entries');
       try {
-        var res = await fetch('content/physique.json');
+        var res = await fetch('../content/physique.json');
         if (!res.ok) throw new Error('HTTP ' + res.status);
         var data = await res.json();
         var entries = data.entries || [];

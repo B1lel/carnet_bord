@@ -35,29 +35,54 @@ collections:
                 date_format: "YYYY-MM-DD"
                 time_format: false
                 format: "YYYY-MM-DDTHH:mm:ss.SSSZ"
-              - label: "Titre"
+              - label: "Titre de la séance"
                 name: "title"
                 widget: "string"
-                hint: "Ex : Implémentation de la diffusion thermique"
-              - label: "Contenu"
-                name: "body"
-                widget: "markdown"
-                hint: "Supporte Markdown, équations LaTeX entre $...$ (inline) ou $$...$$ (bloc)"
-                buttons: [bold, italic, code, link, bulleted-list, numbered-list, quote]
-              - label: "Images"
-                name: "images"
+                hint: "Résumé de la journée/demi-journée. Ex : Séance 3 — Modèle 1D en latitude"
+              - label: "Blocs d'activité"
+                name: "blocks"
                 widget: "list"
-                required: false
-                label_singular: "Image"
+                label_singular: "Bloc"
+                summary: "{{fields.collaborators}}"
+                hint: "Ajoute un bloc par groupe de travail distinct dans la séance"
                 fields:
-                  - label: "Fichier image ou GIF"
-                    name: "src"
-                    widget: "image"
+                  - label: "Avec"
+                    name: "collaborators"
+                    widget: "select"
+                    multiple: true
                     required: false
-                  - label: "Légende"
-                    name: "caption"
-                    widget: "string"
+                    hint: "Avec qui tu as travaillé pour cette activité"
+                    options:
+                      - { label: "Tout le groupe",  value: "groupe" }
+                      - { label: "Théo",            value: "Théo" }
+                      - { label: "Léa",             value: "Léa" }
+                      - { label: "Mathis",          value: "Mathis" }
+                      - { label: "Camille",         value: "Camille" }
+                      - { label: "Hugo",            value: "Hugo" }
+                      - { label: "Inès",            value: "Inès" }
+                      - { label: "Axel",            value: "Axel" }
+                      - { label: "Zoé",             value: "Zoé" }
+                      - { label: "M. Chevereau",    value: "M. Chevereau" }
+                      - { label: "M. Bernard",      value: "M. Bernard" }
+                  - label: "Contenu"
+                    name: "body"
+                    widget: "markdown"
+                    hint: "Décris l'activité. Supporte Markdown, $…$ et $$…$$. Lien biblio : [texte](biblio.html#id)"
+                    buttons: [bold, italic, code, link, bulleted-list, numbered-list, quote]
+                  - label: "Images"
+                    name: "images"
+                    widget: "list"
                     required: false
+                    label_singular: "Image"
+                    fields:
+                      - label: "Fichier image ou GIF"
+                        name: "src"
+                        widget: "image"
+                        required: false
+                      - label: "Légende"
+                        name: "caption"
+                        widget: "string"
+                        required: false
 
   # ── Physique ─────────────────────────────────────────────────
   - name: "physique"
@@ -86,7 +111,7 @@ collections:
               - label: "Explication"
                 name: "body"
                 widget: "markdown"
-                hint: "Équations inline possibles avec $...$ ou blocs avec $$...$$"
+                hint: "Équations inline possibles avec $...$ ou blocs avec $$...$$. Pour citer une source : [texte](biblio.html#identifiant)"
 
   # ── Code Python ──────────────────────────────────────────────
   - name: "code"
@@ -109,9 +134,15 @@ collections:
                 hint: "Ex : Température d'équilibre radiative"
               - label: "Description courte"
                 name: "description"
-                widget: "text"
+                widget: "markdown"
                 required: false
-                hint: "Expliquer ce que fait ce code en quelques phrases"
+                hint: "Expliquer ce que fait ce code. Supports les liens biblio : [Goody & Yung](biblio.html#goody-yung-1989)"
+                buttons: [bold, italic, link]
+              - label: "Lien GitHub (fichier .py)"
+                name: "github_url"
+                widget: "string"
+                required: false
+                hint: "URL du fichier sur GitHub (ex: https://github.com/user/repo/blob/main/model.py). Si rempli, le code est chargé directement depuis GitHub — le champ 'Code Python' ci-dessous est ignoré."
               - label: "Code Python"
                 name: "code"
                 widget: "code"
@@ -136,13 +167,20 @@ collections:
               - label: "Titre"
                 name: "title"
                 widget: "string"
-              - label: "Image ou GIF"
+              - label: "Lien GitHub (GIF/image du repo)"
+                name: "github_url"
+                widget: "string"
+                required: false
+                hint: "URL du fichier sur GitHub (ex: https://github.com/user/repo/blob/main/Final/Gif/anim.gif). Si rempli, prioritaire sur le champ image ci-dessous."
+              - label: "Image ou GIF (upload)"
                 name: "src"
                 widget: "image"
+                required: false
               - label: "Description"
                 name: "description"
                 widget: "text"
                 required: false
+                hint: "Courte légende. Liens Markdown acceptés : [source](biblio.html#id)"
 
   # ── Bibliographie ─────────────────────────────────────────────
   - name: "biblio"

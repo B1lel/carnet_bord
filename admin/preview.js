@@ -6,7 +6,7 @@
 
 /* ── CSS du site dans chaque iframe de preview ── */
 CMS.registerPreviewStyle('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-CMS.registerPreviewStyle('/style.css');
+CMS.registerPreviewStyle('/assets/css/style.css');
 CMS.registerPreviewStyle('https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css');
 CMS.registerPreviewStyle('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css');
 

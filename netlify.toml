@@ -18,3 +18,29 @@
   from  = "/admin/"
   to    = "/admin/index.html"
   status = 200
+
+# Redirections legacy : anciennes URLs à la racine → nouvelles URLs dans /pages/
+[[redirects]]
+  from  = "/journal.html"
+  to    = "/pages/journal.html"
+  status = 301
+
+[[redirects]]
+  from  = "/physique.html"
+  to    = "/pages/physique.html"
+  status = 301
+
+[[redirects]]
+  from  = "/code.html"
+  to    = "/pages/code.html"
+  status = 301
+
+[[redirects]]
+  from  = "/resultats.html"
+  to    = "/pages/resultats.html"
+  status = 301
+
+[[redirects]]
+  from  = "/biblio.html"
+  to    = "/pages/biblio.html"
+  status = 301
