@@ -136,6 +136,14 @@ strong { color: var(--text); }
 .entry-body ul, .entry-body ol { color: var(--text-muted); padding-left: 1.25rem; }
 .entry-body a  { color: var(--accent); }
 .entry-body strong { color: var(--text); }
+.entry-body img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  margin: 0.75rem 0;
+  cursor: zoom-in;
+}
 
 /* ── Code blocks ── */
 pre {
@@ -190,8 +198,10 @@ pre code {
 .img-card img {
   width: 100%;
   display: block;
-  max-height: 220px;
-  object-fit: cover;
+  max-height: 280px;
+  object-fit: contain;
+  background: var(--surface2);
+  cursor: zoom-in;
 }
 .img-caption {
   padding: 0.6rem 0.75rem;
@@ -266,6 +276,41 @@ pre code {
   margin-top: 0.2rem;
 }
 .biblio-entry .bib-url { font-size: 0.82rem; }
+
+/* ── Lightbox ── */
+#lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+#lightbox.open { display: flex; }
+#lightbox img {
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.7);
+  cursor: default;
+}
+#lightbox-close {
+  position: fixed;
+  top: 1rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2.2rem;
+  cursor: pointer;
+  opacity: 0.75;
+  line-height: 1;
+  padding: 0;
+}
+#lightbox-close:hover { opacity: 1; }
 
 /* ── Empty state ── */
 .empty {

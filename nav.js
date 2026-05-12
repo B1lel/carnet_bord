@@ -1,4 +1,4 @@
-/* nav.js — injecte la barre de navigation commune sur toutes les pages */
+/* nav.js — injecte la barre de navigation commune + lightbox sur toutes les pages */
 (function () {
   var links = [
     { id: 'index',     href: 'index.html',     icon: '🏠', label: 'Accueil' },
@@ -37,5 +37,44 @@
     nav.appendChild(footer);
 
     document.body.insertBefore(nav, document.body.firstChild);
+
+    /* ── Lightbox ── */
+    var lb = document.createElement('div');
+    lb.id = 'lightbox';
+    lb.innerHTML = '<button id="lightbox-close" aria-label="Fermer">&#215;</button><img id="lightbox-img" src="" alt="" />';
+    document.body.appendChild(lb);
+
+    var lbImg = document.getElementById('lightbox-img');
+
+    function openLightbox(src, alt) {
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lb.classList.remove('open');
+      lbImg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb) closeLightbox();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    /* Délégation : toute image cliquable dans main ouvre la lightbox */
+    document.addEventListener('click', function (e) {
+      var img = e.target.closest('img');
+      if (!img) return;
+      if (img.id === 'lightbox-img') return;
+      if (!img.src || img.src === window.location.href) return;
+      e.preventDefault();
+      openLightbox(img.src, img.alt);
+    });
   };
 })();
