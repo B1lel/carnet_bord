@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code Python — Carnet de bord</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+</head>
+<body>
+  <script src="nav.js"></script>
+  <script>injectNav('code');</script>
+
+  <main>
+    <div class="page-header">
+      <h1>Code Python</h1>
+      <p>Extraits commentés du programme — fonctions clés et choix d'implémentation.</p>
+    </div>
+    <div id="entries"><p class="empty">Chargement…</p></div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+
+  <script>
+    /* Convertit une URL GitHub normale en URL raw téléchargeable */
+    function toRawUrl(url) {
+      return url
+        .replace('https://github.com/', 'https://raw.githubusercontent.com/')
+        .replace('/blob/', '/');
+    }
+
+    async function fetchGithubCode(url) {
+      var raw = toRawUrl(url.trim());
+      var res = await fetch(raw);
+      if (!res.ok) throw new Error('GitHub HTTP ' + res.status + ' — ' + raw);
+      return await res.text();
+    }
+
+    function renderCard(container, entry, codeStr) {
+      var card = document.createElement('article');
+      card.className = 'card';
+
+      var ghLink = '';
+      if (entry.github_url) {
+        ghLink = '<a class="tag gh-link" href="' + escAttr(entry.github_url) +
+                 '" target="_blank" rel="noopener noreferrer">↗ GitHub</a>';
+      }
+
+      var html =
+        '<div class="snippet-header">' +
+          '<h2 style="margin:0">' + escHtml(entry.title || '') + '</h2>' +
+          '<div style="display:flex;gap:.5rem;align-items:center">' +
+            '<span class="tag">Python</span>' + ghLink +
+          '</div>' +
+        '</div>';
+
+      if (entry.description) {
+        html += '<div class="entry-body snippet-desc">' + marked.parse(entry.description) + '</div>';
+      }
+
+      html += '<pre><code class="language-python">' + escHtml(codeStr) + '</code></pre>';
+      card.innerHTML = html;
+      container.appendChild(card);
+      card.querySelectorAll('pre code').forEach(function (el) { hljs.highlightElement(el); });
+    }
+
+    async function loadCode() {
+      var container = document.getElementById('entries');
+      try {
+        var res = await fetch('content/code.json');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        var data = await res.json();
+        var entries = data.entries || [];
+
+        if (entries.length === 0) {
+          container.innerHTML = '<p class="empty">Aucun extrait de code ajouté pour l\'instant.</p>';
+          return;
+        }
+
+        container.innerHTML = '';
+
+        /* Traite chaque entrée — fetch GitHub si github_url est défini */
+        var tasks = entries.map(function (entry) {
+          if (entry.github_url) {
+            /* Placeholder pendant le chargement */
+            var ph = document.createElement('article');
+            ph.className = 'card';
+            ph.innerHTML =
+              '<div class="snippet-header"><h2 style="margin:0">' + escHtml(entry.title || '') + '</h2>' +
+              '<span class="tag">Python</span></div>' +
+              '<p class="empty" style="padding:1rem 0">Chargement depuis GitHub…</p>';
+            container.appendChild(ph);
+
+            return fetchGithubCode(entry.github_url).then(function (code) {
+              ph.remove();
+              renderCard(container, entry, code);
+            }).catch(function (err) {
+              ph.innerHTML += '<p class="error-msg">Impossible de charger depuis GitHub : ' + escHtml(err.message) + '</p>';
+            });
+          } else {
+            var codeStr = typeof entry.code === 'object' ? (entry.code.code || '') : (entry.code || '');
+            renderCard(container, entry, codeStr);
+            return Promise.resolve();
+          }
+        });
+
+        await Promise.all(tasks);
+
+      } catch (e) {
+        container.innerHTML =
+          '<p class="error-msg">Impossible de charger le code : ' + e.message + '</p>';
+      }
+    }
+
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+    function escAttr(str) { return escHtml(str); }
+
+    loadCode();
+  </script>
+</body>
+</html>
