@@ -43,7 +43,7 @@ collections:
                 name: "body"
                 widget: "markdown"
                 hint: "Supporte Markdown, équations LaTeX entre $...$ (inline) ou $$...$$ (bloc)"
-                buttons: [bold, italic, code, bulleted-list, numbered-list, heading]
+                buttons: [bold, italic, code, link, bulleted-list, numbered-list, quote]
               - label: "Images"
                 name: "images"
                 widget: "list"
