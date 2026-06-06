@@ -72,8 +72,9 @@ collections:
                       - { label: "M. Bernard",      value: "M. Bernard" }
                   - label: "Contenu"
                     name: "body"
-                    widget: "text"
-                    hint: "Saisis en Markdown brut (listes, liens, code, maths). Mode texte stable: evite les bugs Shift+Entree/Ctrl+Z de Decap."
+                    widget: "markdown"
+                    hint: "Décris l'activité. Supporte Markdown, $…$ et $$…$$. Evite Shift+Entrée et limite les sous-listes pour réduire les bugs Decap."
+                    buttons: [bold, italic, code, link, bulleted-list, numbered-list, quote]
                   - label: "Images"
                     name: "images"
                     widget: "list"
