@@ -74,7 +74,7 @@ collections:
                     name: "body"
                     widget: "markdown"
                     hint: "Décris l'activité. Supporte Markdown, $…$ et $$…$$. Evite les sous-listes après Ctrl+Z (bug Decap)."
-                    buttons: [bold, italic, code, link]
+                    buttons: [bold, italic, code, link, bulleted-list, numbered-list, quote]
                   - label: "Images"
                     name: "images"
                     widget: "list"
