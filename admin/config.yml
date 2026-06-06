@@ -58,14 +58,16 @@ collections:
                     hint: "Avec qui tu as travaillé pour cette activité"
                     options:
                       - { label: "Tout le groupe",  value: "groupe" }
-                      - { label: "Théo",            value: "Théo" }
-                      - { label: "Léa",             value: "Léa" }
-                      - { label: "Mathis",          value: "Mathis" }
+                      - { label: "Elsa",            value: "Elsa" }
                       - { label: "Camille",         value: "Camille" }
-                      - { label: "Hugo",            value: "Hugo" }
-                      - { label: "Inès",            value: "Inès" }
-                      - { label: "Axel",            value: "Axel" }
-                      - { label: "Zoé",             value: "Zoé" }
+                      - { label: "Lilian",          value: "Lilian" }
+                      - { label: "Maxence L",       value: "Maxence L" }
+                      - { label: "Mathéo",          value: "Mathéo" }
+                      - { label: "Vittoria",        value: "Vittoria" }
+                      - { label: "Anatole",         value: "Anatole" }
+                      - { label: "Lucas",           value: "Lucas" }
+                      - { label: "Oïhana",          value: "Oïhana" }
+                      - { label: "Isshac",          value: "Isshac" }
                       - { label: "M. Chevereau",    value: "M. Chevereau" }
                       - { label: "M. Bernard",      value: "M. Bernard" }
                   - label: "Contenu"

@@ -1,36 +1,3 @@
 {
-  "entries": [
-    {
-      "date": "2026-05-12T00:00:00.000Z",
-      "title": "Lancement du projet",
-      "blocks": [
-        {
-          "collaborators": [
-            "groupe"
-          ],
-          "body": "Première séance de travail en groupe. Nous avons défini les grandes étapes du modèle :\n\n1. Modèle zéro-dimensionnel (bilan radiatif simple)\n2. Ajout de l'albédo et de l'effet de serre\n3. Modèle 1D en latitude\n\nPour le bilan radiatif de base, on part de l'équilibre entre la puissance solaire absorbée et l'énergie infrarouge émise par la Terre :\n\n$$\\frac{S_0 (1 - A)}{4} = \\sigma T^4$$\n\nCette première version donne une température d'équilibre d'environ **255 K** (−18 °C), ce qui montre clairement l'importance de l'effet de serre pour expliquer les 288 K réels. *(Rayonnement atmosphérique : [Goody & Yung, 1989](biblio.html#goody-yung-1989))*",
-          "images": []
-        }
-      ]
-    },
-    {
-      "date": "2026-05-12T00:00:00.000+02:00",
-      "title": "Testo ",
-      "blocks": [
-        {
-          "collaborators": [
-            "M. Chevereau"
-          ],
-          "body": "Discussion sur le meilleur modèle a prendre \n\n![boom ](/assets/img/capture-d-écran-2026-05-11-210222.png \"d'ou ça sorr\")",
-          "images": []
-        },
-        {
-          "collaborators": [
-            "Zoé"
-          ],
-          "body": "neuille talmo\n\n![]()"
-        }
-      ]
-    }
-  ]
+  "entries": []
 }

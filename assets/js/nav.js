@@ -3,10 +3,8 @@
   var links = [
     { id: 'index',     href: '/index.html',          icon: '🏠', label: 'Accueil' },
     { id: 'journal',   href: '/pages/journal.html',   icon: '📅', label: 'Journal' },
-    { id: 'physique',  href: '/pages/physique.html',  icon: '⚛️',  label: 'Physique' },
     { id: 'code',      href: '/pages/code.html',      icon: '🐍', label: 'Code Python' },
     { id: 'resultats', href: '/pages/resultats.html', icon: '📊', label: 'Résultats' },
-    { id: 'biblio',    href: '/pages/biblio.html',    icon: '📚', label: 'Bibliographie' },
   ];
 
   window.injectNav = function (activePage) {

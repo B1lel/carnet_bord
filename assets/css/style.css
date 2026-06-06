@@ -303,14 +303,16 @@ pre code {
 
 /* Couleur par personne */
 .collab-groupe      { background: rgba(240,136, 62,0.12); color: var(--accent-warm); border-color: rgba(240,136, 62,0.35); }
-.collab-th-o        { background: rgba( 88,166,255,0.12); color: #79c0ff;             border-color: rgba( 88,166,255,0.35); }
-.collab-l-a         { background: rgba(188,140,255,0.12); color: #d2a8ff;             border-color: rgba(188,140,255,0.35); }
-.collab-mathis      { background: rgba( 63,185, 80,0.12); color: var(--green);        border-color: rgba( 63,185, 80,0.35); }
+.collab-elsa        { background: rgba( 88,166,255,0.12); color: #79c0ff;             border-color: rgba( 88,166,255,0.35); }
 .collab-camille     { background: rgba(255,123,114,0.12); color: #ffa198;             border-color: rgba(255,123,114,0.35); }
-.collab-hugo        { background: rgba( 56,189,248,0.12); color: #67d6f5;             border-color: rgba( 56,189,248,0.35); }
-.collab-in-s        { background: rgba(251,191, 36,0.12); color: #fbbf24;             border-color: rgba(251,191, 36,0.35); }
-.collab-axel        { background: rgba(244,114,182,0.12); color: #f472b6;             border-color: rgba(244,114,182,0.35); }
-.collab-zo-         { background: rgba(167,243,208,0.12); color: #6ee7b7;             border-color: rgba(167,243,208,0.35); }
+.collab-lilian      { background: rgba( 63,185, 80,0.12); color: var(--green);        border-color: rgba( 63,185, 80,0.35); }
+.collab-maxence-l   { background: rgba( 56,189,248,0.12); color: #67d6f5;             border-color: rgba( 56,189,248,0.35); }
+.collab-math-o      { background: rgba(251,191, 36,0.12); color: #fbbf24;             border-color: rgba(251,191, 36,0.35); }
+.collab-vittoria    { background: rgba(244,114,182,0.12); color: #f472b6;             border-color: rgba(244,114,182,0.35); }
+.collab-anatole     { background: rgba(167,243,208,0.12); color: #6ee7b7;             border-color: rgba(167,243,208,0.35); }
+.collab-lucas       { background: rgba(188,140,255,0.12); color: #d2a8ff;             border-color: rgba(188,140,255,0.35); }
+.collab-o-hana      { background: rgba(255,166, 88,0.12); color: #ffb778;             border-color: rgba(255,166, 88,0.35); }
+.collab-isshac      { background: rgba(125,211,252,0.12); color: #7dd3fc;             border-color: rgba(125,211,252,0.35); }
 .collab-m--chevereau{ background: rgba(148,163,184,0.12); color: #94a3b8;             border-color: rgba(148,163,184,0.35); }
 .collab-m--bernard  { background: rgba(148,163,184,0.12); color: #94a3b8;             border-color: rgba(148,163,184,0.35); }
 
