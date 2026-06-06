@@ -73,8 +73,8 @@ collections:
                   - label: "Contenu"
                     name: "body"
                     widget: "markdown"
-                    hint: "Décris l'activité. Supporte Markdown, $…$ et $$…$$. Lien biblio : [texte](biblio.html#id)"
-                    buttons: [bold, italic, code, link, bulleted-list, numbered-list, quote]
+                    hint: "Décris l'activité. Supporte Markdown, $…$ et $$…$$. Evite les sous-listes après Ctrl+Z (bug Decap)."
+                    buttons: [bold, italic, code, link]
                   - label: "Images"
                     name: "images"
                     widget: "list"
